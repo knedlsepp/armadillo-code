@@ -14,7 +14,7 @@
 
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-project(armadillo CXX)
+project(armadillo CXX C)
 include(CheckIncludeFileCXX)
 include(CheckLibraryExists)
 
@@ -240,7 +240,7 @@ endif()
 ## cmake -D DETECT_HDF5=true .
 
 if(DETECT_HDF5)
-  find_package(HDF5 COMPONENTS CXX QUIET)
+  find_package(HDF5 QUIET COMPONENTS C)
 
   if(NOT HDF5_FOUND)
     # On Debian systems, the HDF5 package has been split into multiple packages
