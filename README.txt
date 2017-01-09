@@ -50,7 +50,7 @@ automatically combines several operations (at compile time) to increase speed
 and efficiency.
 
 The library can be used for machine learning, pattern recognition, computer vision,
-signal processing, bioinformatics, statistics, econometrics, etc.
+signal processing, bioinformatics, statistics, finance, etc.
 
 Authors:
   Conrad Sanderson - http://conradsanderson.id.au
