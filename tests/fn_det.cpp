@@ -59,7 +59,7 @@ TEST_CASE("fn_det_2")
   }
 
 
-TEST_CASE("fn_det_")
+TEST_CASE("fn_det_3")
   {
   mat A = toeplitz(linspace(1,5,6));
   
