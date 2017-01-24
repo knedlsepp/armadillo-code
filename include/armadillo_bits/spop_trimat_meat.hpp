@@ -27,6 +27,8 @@ spop_trimat::apply_noalias(SpMat<typename T1::elem_type>& out, const SpProxy<T1>
   
   if(upper)
     {
+    // upper triangular: count elements on the diagonal and above the diagonal
+    
     for(uword i=0; i < old_n_nonzero; ++i)
       {
       new_n_nonzero += (it.row() <= it.col()) ? uword(1) : uword(0);
@@ -35,6 +37,8 @@ spop_trimat::apply_noalias(SpMat<typename T1::elem_type>& out, const SpProxy<T1>
     }
   else
     {
+    // lower triangular: count elements on the diagonal and below the diagonal
+    
     for(uword i=0; i < old_n_nonzero; ++i)
       {
       new_n_nonzero += (it.row() >= it.col()) ? uword(1) : uword(0);
@@ -55,6 +59,8 @@ spop_trimat::apply_noalias(SpMat<typename T1::elem_type>& out, const SpProxy<T1>
   
   if(upper)
     {
+    // upper triangular: copy elements on the diagonal and above the diagonal
+    
     for(uword i=0; i < old_n_nonzero; ++i)
       {
       const uword row = it.row();
@@ -73,6 +79,8 @@ spop_trimat::apply_noalias(SpMat<typename T1::elem_type>& out, const SpProxy<T1>
     }
   else
     {
+    // lower triangular: copy elements on the diagonal and below the diagonal
+    
     for(uword i=0; i < old_n_nonzero; ++i)
       {
       const uword row = it.row();
