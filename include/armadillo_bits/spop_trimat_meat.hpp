@@ -16,55 +16,56 @@
 template<typename T1>
 inline
 void
-spop_trimat::apply(SpMat<typename T1::elem_type>& out, const SpOp<T1,spop_trimat>& in)
+spop_trimat::apply_noalias(SpMat<typename T1::elem_type>& out, const SpProxy<T1>& P, const bool upper)
   {
   arma_extra_debug_sigprint();
   
-  typedef typename   T1::elem_type  eT;
-  typedef typename umat::elem_type ueT;
+  typename SpProxy<T1>::const_iterator_type it = P.begin();
   
-  const SpProxy<T1> p(in.m);
-  
-  arma_debug_check( (p.get_n_rows() != p.get_n_cols()), "trimatu()/trimatl(): given matrix must be square sized" );
-  
-  const bool upper = (in.aux_uword_a == 0);
-  
-  const uword N = p.get_n_nonzero();
-  
-  if(N == uword(0))
-    {
-    out.zeros(p.get_n_rows(), p.get_n_cols());
-    return;
-    }
-  
-  umat out_locs(2, N);
-  
-  Col<eT> out_vals(N);
-  eT*     out_vals_ptr = out_vals.memptr();
-  
-  uword out_count = 0;
-  
-  typename SpProxy<T1>::const_iterator_type it = p.begin();
+  const uword old_n_nonzero = P.get_n_nonzero();
+        uword new_n_nonzero = 0;
   
   if(upper)
     {
-    // upper triangular: copy the diagonal and the elements above the diagonal
-    
-    for(uword in_count = 0; in_count < N; ++in_count)
+    for(uword i=0; i < old_n_nonzero; ++i)
+      {
+      new_n_nonzero += (it.row() <= it.col()) ? uword(1) : uword(0);
+      ++it;
+      }
+    }
+  else
+    {
+    for(uword i=0; i < old_n_nonzero; ++i)
+      {
+      new_n_nonzero += (it.row() >= it.col()) ? uword(1) : uword(0);
+      ++it;
+      }
+    }
+  
+  const uword n_rows = P.get_n_rows();
+  const uword n_cols = P.get_n_cols();  
+  
+  out.set_size(n_rows, n_cols);
+  
+  out.mem_resize(new_n_nonzero);
+  
+  uword new_index = 0;
+  
+  it = P.begin();
+  
+  if(upper)
+    {
+    for(uword i=0; i < old_n_nonzero; ++i)
       {
       const uword row = it.row();
       const uword col = it.col();
       
       if(row <= col)
         {
-        ueT* out_locs_ptr = out_locs.colptr(out_count);
-        
-        out_locs_ptr[0] = row;
-        out_locs_ptr[1] = col;
-        
-        out_vals_ptr[out_count] = (*it);
-        
-        out_count++;
+        access::rw(out.values[new_index])      = (*it);
+        access::rw(out.row_indices[new_index]) = row;
+        access::rw(out.col_ptrs[col + 1])++;
+        ++new_index;
         }
       
       ++it;
@@ -72,32 +73,56 @@ spop_trimat::apply(SpMat<typename T1::elem_type>& out, const SpOp<T1,spop_trimat
     }
   else
     {
-    // lower triangular: copy the diagonal and the elements below the diagonal
-    
-    for(uword in_count = 0; in_count < N; ++in_count)
+    for(uword i=0; i < old_n_nonzero; ++i)
       {
       const uword row = it.row();
       const uword col = it.col();
       
       if(row >= col)
         {
-        ueT* out_locs_ptr = out_locs.colptr(out_count);
-        
-        out_locs_ptr[0] = row;
-        out_locs_ptr[1] = col;
-        
-        out_vals_ptr[out_count] = (*it);
-        
-        out_count++;
+        access::rw(out.values[new_index])      = (*it);
+        access::rw(out.row_indices[new_index]) = row;
+        access::rw(out.col_ptrs[col + 1])++;
+        ++new_index;
         }
       
       ++it;
       }
     }
   
-  SpMat<eT> tmp(out_locs.head_cols(out_count), out_vals.head(out_count), p.get_n_rows(), p.get_n_cols());
+  for(uword i=0; i < n_cols; ++i)
+    {
+    access::rw(out.col_ptrs[i + 1]) += out.col_ptrs[i];
+    }
+  }
+
+
+
+template<typename T1>
+inline
+void
+spop_trimat::apply(SpMat<typename T1::elem_type>& out, const SpOp<T1,spop_trimat>& in)
+  {
+  arma_extra_debug_sigprint();
   
-  out.steal_mem(tmp);
+  typedef typename T1::elem_type eT;
+  
+  const SpProxy<T1> P(in.m);
+  
+  arma_debug_check( (P.get_n_rows() != P.get_n_cols()), "trimatu()/trimatl(): given matrix must be square sized" );
+  
+  const bool upper = (in.aux_uword_a == 0);
+  
+  if(P.is_alias(out))
+    {
+    SpMat<eT> tmp;
+    spop_trimat::apply_noalias(tmp, P, upper);
+    out.steal_mem(tmp);
+    }
+  else
+    {
+    spop_trimat::apply_noalias(out, P, upper);
+    }
   }
 
 
