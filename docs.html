@@ -8713,6 +8713,7 @@ See also:
 <li><a href="#min_and_max_member">.min() &amp; .max()</a> (member functions)</li>
 <li><a href="#index_min_and_index_max_standalone">index_min() &amp; index_max()</a>
 <li><a href="#clamp">clamp()</a>
+<li><a href="#stats_fns">statistics functions</a>
 <li><a href="#running_stat">running_stat</a></li>
 <li><a href="#running_stat_vec">running_stat_vec</a></li>
 </ul>
@@ -12071,7 +12072,7 @@ See also:
 
 <div class="pagebreak"></div><div class="noprint"><hr class="greyline"><br></div>
 <a name="stats_fns"></a>
-<b>mean, median, stddev, var</b>
+<b>mean, median, stddev, var, range</b>
 <ul>
 <table style="text-align: left;" border="0" cellpadding="0" cellspacing="0">
 <tbody>
@@ -12155,6 +12156,23 @@ See also:
       &#9133;&nbsp;
     </td>
   </tr>
+  <tr>
+    <td style="vertical-align: top;">
+       <b>range( V )</b>
+       <br><b>range( M )</b>
+       <br><b>range( M, dim )</b>
+       <br>
+       <br>
+    </td>
+    <td style="vertical-align: top;">
+      &nbsp;&nbsp;&nbsp;
+    </td>
+    <td style="vertical-align: top;">
+      &#9131;&nbsp;<br>
+      &#9132;&nbsp;&nbsp;range (difference between max and min)<br>
+      &#9133;&nbsp;
+    </td>
+  </tr>
 </tbody>
 </table>
 <li>
@@ -12208,6 +12226,7 @@ See also:
 <li><a href="#diff">diff()</a></li>
 <li><a href="#hist">hist()</a></li>
 <li><a href="#histc">histc()</a></li>
+<li><a href="#min_and_max">min() &amp; max()</a></li>
 <li><a href="#running_stat">running_stat</a> - class for running statistics of scalars</li>
 <li><a href="#running_stat_vec">running_stat_vec</a> - class for running statistics of vectors</li>
 <li><a href="#gmm_diag">gmm_diag</a> - class for modelling data as a Gaussian mixture model</li>
@@ -16001,6 +16020,7 @@ List of additions and changes for each version:
 <li>Version 7.700:
 <ul>
 <li>added second form of <a href="#log_det">log_det()</a> to directly return the result as a complex number</li>
+<li>added <a href="#stats_fns">range()</a> to statistics functions</li>
 <li>expanded <a href="#trimat">trimatu()/trimatl()</a> and <a href="#symmat">symmatu()/symmatl()</a> to handle sparse matrices</li>
 </ul>
 </li>
