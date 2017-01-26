@@ -1,3 +1,4 @@
+// Copyright (C) 2017      Conrad Sanderson
 // Copyright (C) 2009-2011 National ICT Australia (NICTA)
 // 
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -286,6 +287,18 @@ running_stat<eT>::max() const
   arma_extra_debug_sigprint();
   
   return max_val;
+  }
+
+
+
+template<typename eT>
+inline
+eT
+running_stat<eT>::range() const
+  {
+  arma_extra_debug_sigprint();
+  
+  return (max_val - min_val);
   }
 
 

@@ -1,3 +1,4 @@
+// Copyright (C) 2017      Conrad Sanderson
 // Copyright (C) 2009-2013 National ICT Australia (NICTA)
 // 
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -51,6 +52,8 @@ class running_stat_vec
   
   inline const Mat<eT>& min() const;
   inline const Mat<eT>& max() const;
+  
+  inline Mat<eT> range() const;
   
   inline T count() const;
   

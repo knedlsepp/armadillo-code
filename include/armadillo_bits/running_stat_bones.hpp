@@ -1,3 +1,4 @@
+// Copyright (C) 2017      Conrad Sanderson
 // Copyright (C) 2009-2013 National ICT Australia (NICTA)
 // 
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -65,6 +66,8 @@ class running_stat
   
   inline eT min()  const;
   inline eT max()  const;
+  
+  inline eT range() const;
   
   inline T count() const;
   

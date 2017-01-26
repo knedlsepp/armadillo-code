@@ -12554,7 +12554,7 @@ For an instance of <i>running_stat</i> named as <i>X</i>, the member functions a
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      update the statistics so far using the given scalar
+      update the statistics using the given scalar
       </td>
     </tr>
     <tr>
@@ -12564,7 +12564,7 @@ For an instance of <i>running_stat</i> named as <i>X</i>, the member functions a
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      get the minimum value so far
+      current minimum value
       </td>
     </tr>
     <tr>
@@ -12574,7 +12574,17 @@ For an instance of <i>running_stat</i> named as <i>X</i>, the member functions a
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      get the maximum value so far
+      current maximum value
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+      <b>X.range()</b>
+      </td>
+      <td style="vertical-align: top;">&nbsp;<br>
+      </td>
+      <td style="vertical-align: top;">
+      current range
       </td>
     </tr>
     <tr>
@@ -12584,7 +12594,7 @@ For an instance of <i>running_stat</i> named as <i>X</i>, the member functions a
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      get the mean or average value so far
+      current mean or average value
       </td>
     </tr>
     <tr>
@@ -12594,7 +12604,7 @@ For an instance of <i>running_stat</i> named as <i>X</i>, the member functions a
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      get the variance so far
+      current variance
       </td>
     </tr>
     <tr>
@@ -12604,7 +12614,7 @@ For an instance of <i>running_stat</i> named as <i>X</i>, the member functions a
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      get the standard deviation so far
+      current standard deviation
       </td>
     </tr>
     <tr>
@@ -12624,7 +12634,7 @@ For an instance of <i>running_stat</i> named as <i>X</i>, the member functions a
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      get the number of samples so far
+      current number of samples
       </td>
     </tr>
   </tbody>
@@ -12711,7 +12721,7 @@ For an instance of <i>running_stat_vec</i> named as <i>X</i>, the member functio
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      update the statistics so far using the given vector
+      update the statistics using the given vector
       </td>
     </tr>
     <tr>
@@ -12721,7 +12731,7 @@ For an instance of <i>running_stat_vec</i> named as <i>X</i>, the member functio
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      get the vector of minimum values so far
+      vector of current minimum values
       </td>
     </tr>
     <tr>
@@ -12731,7 +12741,17 @@ For an instance of <i>running_stat_vec</i> named as <i>X</i>, the member functio
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      get the vector of maximum values so far
+      vector of current maximum values
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+      <b>X.range()</b>
+      </td>
+      <td style="vertical-align: top;">&nbsp;<br>
+      </td>
+      <td style="vertical-align: top;">
+      vector of current ranges
       </td>
     </tr>
     <tr>
@@ -12741,7 +12761,7 @@ For an instance of <i>running_stat_vec</i> named as <i>X</i>, the member functio
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      get the mean vector so far
+      vector of current means
       </td>
     </tr>
     <tr>
@@ -12751,7 +12771,7 @@ For an instance of <i>running_stat_vec</i> named as <i>X</i>, the member functio
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      get the vector of variances so far
+      vector of current variances
       </td>
     </tr>
     <tr>
@@ -12761,7 +12781,7 @@ For an instance of <i>running_stat_vec</i> named as <i>X</i>, the member functio
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      get the vector of standard deviations so far
+      vector of current standard deviations
       </td>
     </tr>
     <tr>
@@ -12771,7 +12791,7 @@ For an instance of <i>running_stat_vec</i> named as <i>X</i>, the member functio
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      get the covariance matrix so far;
+      matrix of current covariances;
       valid if <i>calc_cov=true</i> during construction of <i>running_stat_vec</i>
       </td>
     </tr>
@@ -12792,7 +12812,7 @@ For an instance of <i>running_stat_vec</i> named as <i>X</i>, the member functio
       <td style="vertical-align: top;">&nbsp;<br>
       </td>
       <td style="vertical-align: top;">
-      get the number of samples so far
+      current number of samples
       </td>
     </tr>
   </tbody>

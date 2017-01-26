@@ -1,3 +1,4 @@
+// Copyright (C) 2017      Conrad Sanderson
 // Copyright (C) 2009-2013 National ICT Australia (NICTA)
 // 
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -307,6 +308,18 @@ running_stat_vec<obj_type>::max() const
   arma_extra_debug_sigprint();
   
   return max_val;
+  }
+
+
+
+template<typename obj_type>
+inline
+Mat< typename running_stat_vec<obj_type>::eT >
+running_stat_vec<obj_type>::range() const
+  {
+  arma_extra_debug_sigprint();
+  
+  return (max_val - min_val);
   }
 
 
