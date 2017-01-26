@@ -1,3 +1,4 @@
+// Copyright (C) 2017      Conrad Sanderson
 // Copyright (C) 2010-2015 National ICT Australia (NICTA)
 // 
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -90,8 +91,6 @@ log_det
   
   out_val  = val;
   out_sign = sign;
-  
-  return;
   }
 
 
