@@ -501,3 +501,7 @@ if(PKG_CONFIG_FOUND)
   
   install(FILES "${PROJECT_BINARY_DIR}/tmp/misc/armadillo.pc" DESTINATION ${PKG_CONFIG_DIR})
 endif()
+
+# Enable unit tests
+enable_testing(true)
+add_subdirectory(tests)

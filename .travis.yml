@@ -1,0 +1,49 @@
+language: cpp
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      compiler: gcc
+      sudo: required
+    - os: linux
+      dist: trusty
+      compiler: clang
+      sudo: required
+    - os: osx
+      compiler: clang
+      osx_image: xcode7.3
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - george-edison55-precise-backports
+    packages:
+      - gcc-4.8
+      - g++-4.8
+      - clang
+      - cmake
+      - cmake-data
+      - gfortran
+      - libopenblas-dev
+      - liblapack-dev
+      - libarpack++2-dev
+      - libhdf5-serial-dev
+
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install homebrew/science/superlu homebrew/science/hdf5; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then git clone https://github.com/xiaoyeli/superlu && cd superlu; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then git checkout v5.2.1; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then mkdir build && cd build && cmake -DBUILD_SHARED_LIBS=true -DUSE_XSDK_DEFAULTS=true .. && make && sudo make install && cd ../..; fi
+
+script:
+  - mkdir -p build
+  - cd build
+  - cmake -DDETECT_HDF5=ON .. && make && make test
+
+install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi; fi
+
