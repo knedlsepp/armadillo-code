@@ -37,13 +37,17 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install homebrew/science/superlu homebrew/science/hdf5; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then git clone https://github.com/xiaoyeli/superlu && cd superlu; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then git checkout v5.2.1; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then mkdir build && cd build && cmake -DBUILD_SHARED_LIBS=true -DUSE_XSDK_DEFAULTS=true .. && make && sudo make install && cd ../..; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then mkdir build && cd build && cmake -DBUILD_SHARED_LIBS=true -DUSE_XSDK_DEFAULTS=true .. && make && sudo make install && cd ../.. && rm -rf superlu; fi
+  - pip install --user cpp-coveralls
+
+install:
+  - if [[ ("$TRAVIS_OS_NAME" == "linux") && ( "$CXX" == "g++") ]]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
 
 script:
   - mkdir -p build
   - cd build
-  - cmake -DDETECT_HDF5=ON .. && make && make test
+  - export ARMADILLO_COVERAGE=$(if [[ ("$TRAVIS_OS_NAME" == "linux") && ("$CXX" != "clang++") ]]; then echo "ON"; else echo "OFF"; fi)
+  - cmake -DDETECT_HDF5=ON -DCMAKE_BUILD_TYPE=Debug -DARMADILLO_COVERAGE=$ARMADILLO_COVERAGE .. && make && make check
 
-install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi; fi
-
+after_success:
+  - if [[ "$ARMADILLO_COVERAGE" == "ON" ]]; then make coverage && coveralls --root .. --exclude lib --exclude /usr --gcov-options '\-lp'; fi
